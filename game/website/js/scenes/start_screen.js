@@ -16,12 +16,14 @@ class start_screen extends Phaser.Scene {
         const graffTiles = this.map.addTilesetImage('death_graff');
         const trashTiles = this.map.addTilesetImage('trash_level_one');
         const kingTiles = this.map.addTilesetImage('skeleton_king');
-        const skelTiles = this.map.addTilesetImage('tower_of_skel')
+        const skelTiles = this.map.addTilesetImage('tower_of_skel');
+        const banksyTiles = this.map.addTilesetImage('banksy_graff');
 
 
         // create the layers
         const background_2 = this.map.createLayer('background_2', [brickTiles, curbTiles, graffTiles]);
-        const background = this.map.createLayer('background', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles]);
+        const background = this.map.createLayer('background', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles]);
+
 
         background.setCollisionByProperty({'collision': true})
 
