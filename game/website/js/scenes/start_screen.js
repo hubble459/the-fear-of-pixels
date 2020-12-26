@@ -14,10 +14,11 @@ class start_screen extends Phaser.Scene {
         const brickTiles = this.map.addTilesetImage('bricks_level_one');
         const curbTiles = this.map.addTilesetImage('curb_level_one');
         const graffTiles = this.map.addTilesetImage('death_graff');
+        const trashTiles = this.map.addTilesetImage('trash_level_one')
 
         // create the layers
         const background_2 = this.map.createLayer('background_2', [brickTiles, curbTiles, graffTiles]);
-        const background = this.map.createLayer('background', [brickTiles, curbTiles, graffTiles]);
+        const background = this.map.createLayer('background', [brickTiles, curbTiles, graffTiles,trashTiles]);
 
         background.setCollisionByProperty({'collision': true})
 

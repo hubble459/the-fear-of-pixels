@@ -81,6 +81,7 @@ class LoadScreen extends Phaser.Scene {
         this.load.spritesheet('bricks_level_one', 'bricks_level_one.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('curb_level_one', 'curb_level_one.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('death_graff', 'graff_death.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('trash_level_one', 'trash_level_one.png', {frameWidth: 32, frameHeight: 32});
     }
 
     create() {
