@@ -1,16 +1,14 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    MAX_HOR_SPEED = 300;
+    MAX_HOR_SPEED = 200;
     MAX_VER_SPEED = 1000;
 
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
         this.animations();
-        // this.setInteractive();
-        // this.on('pointerdown',this.clickMe,this);
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
-        this.setVelocity(0, -200);
+        this.setScale(.2);
         this.cursors = scene.cursors;
     }
 
@@ -21,7 +19,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         if (onFloor) {
             if (this.cursors.space.isDown) {
                 this.jumping = true;
-                this.anims.play('jump', false);
+//                this.anims.play('jump', false);
                 this.setVelocityY(-this.MAX_VER_SPEED);
             } else {
                 this.jumping = false;
@@ -40,7 +38,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             if (!this.jumping) {
                 this.anims.play('run', true)
             }
-        } else if (onFloor) {
+        } else if (onFloor && !this.jumping) {
             this.setVelocity(0);
             this.anims.stopAfterRepeat(0);
         }
@@ -52,45 +50,61 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.create({
             key: 'run',
             frames: [
-                {
+                              {
                     key: 'player',
-                    frame: 'Richard 2'
+                    frame: 'frame-1'
                 },
                 {
                     key: 'player',
-                    frame: 'Richard 1'
+                    frame: 'frame-2'
                 },
                 {
                     key: 'player',
-                    frame: 'Richard 3'
+                    frame: 'frame-3'
                 },
                 {
                     key: 'player',
-                    frame: 'Richard 1'
-                }
+                    frame: 'frame-4'
+                },
+                {
+                    key: 'player',
+                    frame: 'frame-5'
+                },
+                {
+                    key: 'player',
+                    frame: 'frame-6'
+                },
+                {
+                    key: 'player',
+                    frame: 'frame-7'
+                },
+                {
+                    key: 'player',
+                    frame: 'frame-0'
+                },
             ],
-            frameRate: 10,
+            frameRate: 12,
             repeat: -1
         });
 
-        this.anims.create({
-            key: 'jump',
-            frames: [
-                {
-                    key: 'player',
-                    frame: 'Richard 2'
-                },
-                {
-                    key: 'player',
-                    frame: 'Richard 3'
-                },
-                {
-                    key: 'player',
-                    frame: 'Richard 1'
-                }
-            ],
-            frameRate: 3,
-            repeat: 1
-        });
+//        this.anims.create({
+//            key: 'jump',
+//            frames: [
+//                {
+//                    key: 'player',
+//                    frame: 'Richard 2'
+//                },
+//                {
+//                    key: 'player',
+//                    frame: 'Richard 3'
+//                },
+//                {
+//                    key: 'player',
+//                    frame: 'Richard 1'
+//                }
+//            ],
+//            frameRate: 3,
+//            repeat: 1
+//        });
     }
 }

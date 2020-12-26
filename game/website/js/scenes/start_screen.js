@@ -7,8 +7,12 @@ class start_screen extends Phaser.Scene {
         this.#bindKeys();
 
         this.cameras.main.setBackgroundColor('#456789');
+
         this.player = new Player(this, 1, 1);
-        console.log(this.player)
+
+        const map = this.make.tilemap({ key: 'level_1' });
+        const
+
     }
 
     #bindKeys() {
