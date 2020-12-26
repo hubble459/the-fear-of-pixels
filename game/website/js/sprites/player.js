@@ -1,5 +1,5 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    MAX_HOR_SPEED = 200;
+    MAX_HOR_SPEED = 400;
     MAX_VER_SPEED = 1000;
 
     constructor(scene, x, y) {
@@ -40,7 +40,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         } else if (onFloor && !this.jumping) {
             this.setVelocity(0);
-            this.anims.stopAfterRepeat(0);
+            // this.anims.stopAfterRepeat(0);
+            this.anims.stop();
+            this.setFrame('frame-0');
         }
 
         super.preUpdate(time, delta);

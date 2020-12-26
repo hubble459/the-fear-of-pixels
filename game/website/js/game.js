@@ -68,15 +68,19 @@ class LoadScreen extends Phaser.Scene {
         this.load.script('playerScript', 'player.js');
 
         // Sprites Images
-        this.load.setPath('/assets/sprites/')
+        this.load.setPath('/assets/sprites/');
         this.load.atlas('player', 'nick_clark.png', 'nick_clark.json');
 
         // Levels
-        this.load.setPath('/assets/levels/')
+        this.load.setPath('/assets/levels/');
         this.load.tilemapTiledJSON('level_1', 'level_1.json');
 
         // Tile-sets
-
+        const tile_sets = '/assets/tile_sets/';
+        this.load.setPath(tile_sets + 'level_one');
+        this.load.spritesheet('bricks_level_one', 'bricks_level_one.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('curb_level_one', 'curb_level_one.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('death_graff', 'graff_death.png', {frameWidth: 32, frameHeight: 32});
     }
 
     create() {
