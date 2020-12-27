@@ -21,12 +21,13 @@ class start_screen extends Phaser.Scene {
         const postersTiles = this.map.addTilesetImage('posters');
         const tile1Tiles = this.map.addTilesetImage('tile1');
         const streetlightTiles = this.map.addTilesetImage('streetlight');
+        const cloudsTiles = this.map.addTilesetImage('clouds');
 
         // create the layers
-        const city = this.map.createLayer('city', [streetlightTiles]);
+        const city = this.map.createLayer('city', [streetlightTiles, cloudsTiles]);
         const wall = this.map.createLayer('wall', [brickTiles, curbTiles, graffTiles, tile1Tiles]);
         const grass = this.map.createLayer('grass', [tile1Tiles]);
-        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles]);
+        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles]);
         wall.setCollisionByProperty({'collision': true});
         this.player = new Player(this, 200, 0);
         this.physics.add.collider(this.player, wall);
@@ -45,7 +46,7 @@ class start_screen extends Phaser.Scene {
 
         this.background = this.add.tileSprite(
             0,
-            offset,
+            0,
             width,
             height,
             'skyline'
