@@ -22,12 +22,13 @@ class start_screen extends Phaser.Scene {
         const tile1Tiles = this.map.addTilesetImage('tile1');
         const streetlightTiles = this.map.addTilesetImage('streetlight');
         const cloudsTiles = this.map.addTilesetImage('clouds');
+        const LAsignTiles = this.map.addTilesetImage('LA_skyline')
 
         // create the layers
         const city = this.map.createLayer('city', [streetlightTiles, cloudsTiles]);
         const wall = this.map.createLayer('wall', [brickTiles, curbTiles, graffTiles, tile1Tiles]);
         const grass = this.map.createLayer('grass', [tile1Tiles]);
-        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles]);
+        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles,LAsignTiles]);
         wall.setCollisionByProperty({'collision': true});
         this.player = new Player(this, 200, 0);
         this.physics.add.collider(this.player, wall);
