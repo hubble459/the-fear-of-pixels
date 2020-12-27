@@ -36,6 +36,7 @@ class start_screen extends Phaser.Scene {
         world.setCollisionByProperty({'collision': true});
         this.player = new Player(this, 200, 0);
         this.physics.add.collider(this.player, wall);
+        this.physics.add.collider(this.player, world);
         this.cameras.main.startFollow(this.player, true, .1, .1);
 
         const width = this.map.widthInPixels;
