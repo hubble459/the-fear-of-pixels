@@ -33,11 +33,17 @@ class start_screen extends Phaser.Scene {
         const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles,LAsignTiles, stopsignTiles]);
         const world = this.map.createLayer('world', [trashTiles, cartonTiles, carsTiles]);
         wall.setCollisionByProperty({'collision': true});
-        world.setCollisionByProperty({'collision': true});
+        world.forEachTile(tile => {
+            if (!!tile.properties.car) {
+                tile.setCollision(false, false, !!tile.properties.collision, false, true);
+            }
+        });
         this.player = new Player(this, 200, 0);
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, world);
         this.cameras.main.startFollow(this.player, true, .1, .1);
+
+
 
         const width = this.map.widthInPixels;
         const height = this.map.heightInPixels;
