@@ -13,7 +13,6 @@ class start_screen extends Phaser.Scene {
         this.map = this.make.tilemap({key: 'level_1'});
         const brickTiles = this.map.addTilesetImage('bricks_level_one');
         const curbTiles = this.map.addTilesetImage('curb_level_one');
-        const graffTiles = this.map.addTilesetImage('death_graff');
         const trashTiles = this.map.addTilesetImage('trash_level_one');
         const kingTiles = this.map.addTilesetImage('skeleton_king');
         const skelTiles = this.map.addTilesetImage('tower_of_skel');
@@ -22,14 +21,19 @@ class start_screen extends Phaser.Scene {
         const tile1Tiles = this.map.addTilesetImage('tile1');
         const streetlightTiles = this.map.addTilesetImage('streetlight');
         const cloudsTiles = this.map.addTilesetImage('clouds');
-        const LAsignTiles = this.map.addTilesetImage('LA_skyline')
+        const LAsignTiles = this.map.addTilesetImage('LA_sign');
+        const stopsignTiles = this.map.addTilesetImage('stopsign');
+        const cartonTiles = this.map.addTilesetImage('carton');
+        const carsTiles = this.map.addTilesetImage('cars');
 
         // create the layers
         const city = this.map.createLayer('city', [streetlightTiles, cloudsTiles]);
-        const wall = this.map.createLayer('wall', [brickTiles, curbTiles, graffTiles, tile1Tiles]);
-        const grass = this.map.createLayer('grass', [tile1Tiles]);
-        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles,LAsignTiles]);
+        const wall = this.map.createLayer('wall', [brickTiles, curbTiles, tile1Tiles]);
+        const grass = this.map.createLayer('grass', [tile1Tiles,cartonTiles]);
+        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles,LAsignTiles, stopsignTiles]);
+        const world = this.map.createLayer('world', [trashTiles, cartonTiles, carsTiles]);
         wall.setCollisionByProperty({'collision': true});
+        world.setCollisionByProperty({'collision': true});
         this.player = new Player(this, 200, 0);
         this.physics.add.collider(this.player, wall);
         this.cameras.main.startFollow(this.player, true, .1, .1);

@@ -80,7 +80,6 @@ class LoadScreen extends Phaser.Scene {
         this.load.setPath(tile_sets + 'level_one');
         this.load.spritesheet('bricks_level_one', 'bricks_level_one.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('curb_level_one', 'curb_level_one.png', {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet('death_graff', 'graff_death.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('trash_level_one', 'trash_level_one.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('skeleton_king', 'skeleton_king.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('tower_of_skel', 'tower_of_skel.png', {frameWidth: 32, frameHeight: 32});
@@ -91,6 +90,9 @@ class LoadScreen extends Phaser.Scene {
         this.load.image('skyline', 'LA_skyline.png');
         this.load.spritesheet('clouds', 'clouds.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('LA_sign', 'LA_sign.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('stopsign', 'stopsign.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('carton', 'carton.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('cars', 'cars.png', {frameWidth: 32, frameHeight: 32});
     }
 
     create() {
