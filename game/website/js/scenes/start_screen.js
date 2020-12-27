@@ -33,6 +33,7 @@ class start_screen extends Phaser.Scene {
         const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles,LAsignTiles, stopsignTiles]);
         const world = this.map.createLayer('world', [trashTiles, cartonTiles, carsTiles]);
         wall.setCollisionByProperty({'collision': true});
+        world.setDepth(1);
         world.forEachTile(tile => {
             if (!!tile.properties.car) {
                 tile.setCollision(false, false, !!tile.properties.collision, false, true);
