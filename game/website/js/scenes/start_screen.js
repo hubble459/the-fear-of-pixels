@@ -27,7 +27,7 @@ class start_screen extends Phaser.Scene {
         const city = this.map.createLayer('city', [streetlightTiles]);
         const wall = this.map.createLayer('wall', [brickTiles, curbTiles, graffTiles, tile1Tiles]);
         const grass = this.map.createLayer('grass', [tile1Tiles]);
-        const before wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles]);
+        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles]);
 
 
         background.setCollisionByProperty({'collision': true});
