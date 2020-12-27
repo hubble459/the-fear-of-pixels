@@ -8,7 +8,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
-        this.setScale(.2);
+        this.setScale(.175);
         this.cursors = scene.cursors;
     }
 
@@ -88,25 +88,5 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             frameRate: 12,
             repeat: -1
         });
-
-//        this.anims.create({
-//            key: 'jump',
-//            frames: [
-//                {
-//                    key: 'player',
-//                    frame: 'Richard 2'
-//                },
-//                {
-//                    key: 'player',
-//                    frame: 'Richard 3'
-//                },
-//                {
-//                    key: 'player',
-//                    frame: 'Richard 1'
-//                }
-//            ],
-//            frameRate: 3,
-//            repeat: 1
-//        });
     }
 }
