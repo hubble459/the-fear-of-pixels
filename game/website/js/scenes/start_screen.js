@@ -24,7 +24,7 @@ class start_screen extends Phaser.Scene {
 
         // create the layers
         const background_2 = this.map.createLayer('background_2', [brickTiles, curbTiles, graffTiles]);
-        const background = this.map.createLayer('background', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, posterTiles]);
+        const background = this.map.createLayer('background', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, posterTiles, tile1Tiles]);
 
 
         background.setCollisionByProperty({'collision': true});
