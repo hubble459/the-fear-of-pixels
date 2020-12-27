@@ -19,6 +19,7 @@ class start_screen extends Phaser.Scene {
         const skelTiles = this.map.addTilesetImage('tower_of_skel');
         const banksyTiles = this.map.addTilesetImage('banksy_graff');
         const posterTiles = this.map.addTilesetImage('posters');
+        const tile1Tiles = this.map.addTilesetImage('tile1');
 
 
         // create the layers
