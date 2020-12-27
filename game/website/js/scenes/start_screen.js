@@ -35,8 +35,14 @@ class start_screen extends Phaser.Scene {
         wall.setCollisionByProperty({'collision': true});
         world.setDepth(1);
         world.forEachTile(tile => {
-            if (!!tile.properties.car) {
-                tile.setCollision(false, false, !!tile.properties.collision, false, true);
+            if (!!tile.properties.car && !!tile.properties.collision) {
+                tile.setCollision(false, false, true, false, true);
+                tile.setCollisionCallback((sprite, tile) => {
+                    sprite.setDepth(1);
+                    setTimeout(() => {
+                        sprite.setDepth(0);
+                    }, 100)
+                }, this);
             }
         });
         this.player = new Player(this, 200, 0);
