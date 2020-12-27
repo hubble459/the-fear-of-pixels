@@ -22,26 +22,40 @@ class start_screen extends Phaser.Scene {
         const tile1Tiles = this.map.addTilesetImage('tile1');
         const streetlightTiles = this.map.addTilesetImage('streetlight');
 
-
         // create the layers
         const city = this.map.createLayer('city', [streetlightTiles]);
         const wall = this.map.createLayer('wall', [brickTiles, curbTiles, graffTiles, tile1Tiles]);
         const grass = this.map.createLayer('grass', [tile1Tiles]);
         const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, graffTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles]);
-
-
-        before_wall.setCollisionByProperty({'collision': true});
+        wall.setCollisionByProperty({'collision': true});
         this.player = new Player(this, 200, 0);
-        this.physics.add.collider(this.player, before_wall);
+        this.physics.add.collider(this.player, wall);
+        this.cameras.main.startFollow(this.player, true, .1, .1);
+
+        const width = this.map.widthInPixels;
+        const height = this.map.heightInPixels;
 
         // Sizes
-        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.cameras.main.scaleManager.setGameSize(2000, this.map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, width, height);
+        this.physics.world.setBounds(0, 0, width, height);
+        this.cameras.main.scaleManager.setGameSize(2000, height);
 
+        this.background = this.add.tileSprite(
+            0,
+            0,
+            width,
+            height,
+            'death_graff',
+            '2'
+        ).setDepth(-1)
+            .setOrigin(0)
+            .setScrollFactor(0);
+    }
 
-
-        this.cameras.main.startFollow(this.player, true, .1, .1)
+    update(time, delta) {
+        if (this.background) {
+            this.background.tilePositionX = this.cameras.main.scrollX * .3;
+        }
     }
 
     #bindKeys() {
