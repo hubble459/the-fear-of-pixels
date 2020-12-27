@@ -88,7 +88,7 @@ class LoadScreen extends Phaser.Scene {
         this.load.spritesheet('posters', 'posters.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('tile1', 'tile1.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('streetlight', 'streetlight.png', {frameWidth: 32, frameHeight: 32});
-        this.load.image('sky_line', 'streetlight.png');
+        this.load.image('skyline', 'LA_skyline.png');
     }
 
     create() {
