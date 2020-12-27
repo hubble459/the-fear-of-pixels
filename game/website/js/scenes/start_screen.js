@@ -40,16 +40,15 @@ class start_screen extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, width, height);
         this.cameras.main.scaleManager.setGameSize(2000, height);
 
-        const skyLine = this.textures.get('sky_line');
+        const skyLine = this.textures.get('skyline');
         const offset = skyLine.frames[skyLine.firstFrame].halfHeight;
-        console.log(offset)
+
         this.background = this.add.tileSprite(
             0,
             offset,
             width,
             height,
-            'sky_line',
-            '2'
+            'skyline'
         ).setDepth(-1)
             .setOrigin(0)
             .setScrollFactor(0);
