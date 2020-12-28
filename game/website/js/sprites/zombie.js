@@ -1,19 +1,16 @@
 class Zombie extends Phaser.Physics.Arcade.Sprite {
-    MAX_HOR_SPEED = 200;
+    MAX_HOR_SPEED = 100;
 
     constructor(scene, width, height, x, y, type) {
         super(scene, x, y, 'zombie' + type);
         this.key = 'zombie' + type;
 
-        const scale = 5;
+        const scale = .75;
         this.animations();
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setScale(scale);
-        height /= scale;
-        width /= scale;
-        this.setBodySize(width, height, true);
-        this.body.co;
+        this.setBodySize(this.displayWidth / 2.5, height, true);
         this.anims.play('walk1');
 
         this.setVelocityX(this.MAX_HOR_SPEED)

@@ -43,7 +43,6 @@ class start_screen extends Phaser.Scene {
         this.physics.add.collider(this.player, world);
         this.cameras.main.startFollow(this.player, true, .1, .1);
 
-
         const width = this.map.widthInPixels;
         const height = this.map.heightInPixels;
 
@@ -53,7 +52,11 @@ class start_screen extends Phaser.Scene {
             const zombie = new Zombie(this, this.player.displayWidth, this.player.displayHeight, x, this.player.y, 1);
             this.physics.add.collider(zombie, wall);
             this.physics.add.collider(zombie, world);
+            this.physics.add.collider(zombie, this.player, () => {
+                console.log('ma dude, you dedded');
+            });
         }
+
 
         // Sizes
         this.cameras.main.setBounds(0, 0, width, height);
