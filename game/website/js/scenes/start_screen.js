@@ -29,11 +29,10 @@ class start_screen extends Phaser.Scene {
         // create the layers
         const city = this.map.createLayer('city', [streetlightTiles, cloudsTiles]);
         const wall = this.map.createLayer('wall', [brickTiles, curbTiles, tile1Tiles]);
-        const grass = this.map.createLayer('grass', [tile1Tiles,cartonTiles]);
-        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles,trashTiles, kingTiles,skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles,LAsignTiles, stopsignTiles]);
+        const grass = this.map.createLayer('grass', [tile1Tiles, cartonTiles]);
+        const before_wall = this.map.createLayer('before wall', [brickTiles, curbTiles, trashTiles, kingTiles, skelTiles, banksyTiles, postersTiles, streetlightTiles, cloudsTiles, LAsignTiles, stopsignTiles]);
         const world = this.map.createLayer('world', [trashTiles, cartonTiles, carsTiles]);
         wall.setCollisionByProperty({'collision': true});
-        // world.setDepth(1);
         world.forEachTile(tile => {
             if (!!tile.properties.car && !!tile.properties.collision) {
                 tile.setCollision(false, false, true, false, true);
@@ -45,17 +44,21 @@ class start_screen extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true, .1, .1);
 
 
-
         const width = this.map.widthInPixels;
         const height = this.map.heightInPixels;
+
+        for (let i = 0; i < 5; i++) {
+            /*this['zombie' + 1] = */
+            const x = Phaser.Math.Between(this.player.x + 20, width);
+            const zombie = new Zombie(this, this.player.displayWidth, this.player.displayHeight, x, this.player.y, 1);
+            this.physics.add.collider(zombie, wall);
+            this.physics.add.collider(zombie, world);
+        }
 
         // Sizes
         this.cameras.main.setBounds(0, 0, width, height);
         this.physics.world.setBounds(0, 0, width, height);
         this.cameras.main.scaleManager.setGameSize(2000, height);
-
-        const skyLine = this.textures.get('skyline');
-        const offset = skyLine.frames[skyLine.firstFrame].halfHeight;
 
         this.background = this.add.tileSprite(
             0,
