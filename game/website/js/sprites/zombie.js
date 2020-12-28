@@ -1,59 +1,49 @@
 class Zombie extends Phaser.Physics.Arcade.Sprite {
-    MAX_HOR_SPEED = 100;
-    key: string;
-    from: any;
-    to: any;
-    right: boolean;
-
-
-    constructor(scene, width: number, height: number, from: any, to: any, type: number) {
+    constructor(scene, width, height, from, to, type) {
         super(scene, from.x, from.y, 'zombie' + type);
+        this.MAX_HOR_SPEED = 100;
         this.key = 'zombie' + type;
         this.from = from;
         this.to = to;
-
         this.right = from.x < to.x;
         if (!this.right) {
             this.from = to;
             this.to = from;
         }
-
         const scale = .75;
         this.animations();
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setScale(scale);
         this.setFlipX(!this.right);
-        (this as any).setBodySize(this.displayWidth / 2.5, height, true);
+        this.setBodySize(this.displayWidth / 2.5, height, true);
         this.setImmovable(true);
-        (this.body as any).setImmovable(true);
+        this.body.setImmovable(true);
         const listener = () => {
             const openMouth = ~~(Math.random() * 4) === 0;
             if (openMouth) {
                 this.anims.play('walk2', true);
-            } else {
-                this.anims.play('walk1', true);//.on('animationcomplete', listener);
+            }
+            else {
+                this.anims.play('walk1', true); //.on('animationcomplete', listener);
             }
         };
         this.anims.play('walk1', true).on('animationcomplete', listener);
-
     }
-
-    preUpdate(time: number, delta: number) {
+    preUpdate(time, delta) {
         this.setFlipX(!this.right);
         if (this.right) {
             this.setVelocityX(this.MAX_HOR_SPEED);
             this.right = this.x < this.to.x;
-        } else {
+        }
+        else {
             this.setVelocityX(-this.MAX_HOR_SPEED);
             this.right = this.x < this.from.x;
         }
-
         super.preUpdate(time, delta);
     }
-
     animations() {
-        (this.anims as any).create({
+        this.anims.create({
             key: 'walk1',
             frames: [
                 {
@@ -92,8 +82,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
             frameRate: 12,
             repeat: 1
         });
-
-        (this.anims as any).create({
+        this.anims.create({
             key: 'walk2',
             frames: [
                 {
