@@ -1,26 +1,35 @@
 class DeathScene extends Phaser.Scene {
     constructor() {
         super('death_scene');
-        this.adviceTexts = [
-            'Maybe try evading them next time.',
-            `Geesh, I thought you'd survive longer.`,
-            `Don't give up on us yet! We'll get there`,
-            'Hey, be careful out there!',
-            'Again...'
-        ];
     }
+
+    adviceTexts = [
+        'Maybe try evading them next time.',
+        `Geesh, I thought you'd survive longer.`,
+        `Don't give up on us yet! We'll get there`,
+        'Hey, be careful out there!',
+        'Again...'
+    ];
+
     // preload(){
     //     this.load.setPath('/js/scenes/');
     //     this.load.sceneFile('LevelOne', 'level_one.js');
     // }
+
     create() {
+        
+     
         // document.body.style.backgroundColor = 'black'; 
+
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
-        // this.add.image(400, 300, 'skyline');
+
+       // this.add.image(400, 300, 'skyline');
+
         const deathText = this.make.text({
             x: width / 2,
-            y: height / 2 - 100,
+            y: height / 2 - 100
+            ,
             text: 'YOU DIED.',
             style: {
                 font: '70px impact',
@@ -28,6 +37,7 @@ class DeathScene extends Phaser.Scene {
             },
             origin: .5
         });
+
         const adviceText = this.make.text({
             x: width / 2,
             y: height / 2,
@@ -38,6 +48,7 @@ class DeathScene extends Phaser.Scene {
             },
             origin: .5
         });
+
         const newGameButton = this.make.text({
             x: width / 2,
             y: height / 2 + 150,
@@ -90,4 +101,5 @@ class DeathScene extends Phaser.Scene {
             quitButton.setStyle({ color: 'white' });
         });
     }
+
 }
