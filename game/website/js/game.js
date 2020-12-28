@@ -61,7 +61,9 @@ class LoadScreen extends Phaser.Scene {
 
         // Load assets
         this.load.setPath('/js/scenes/');
-        this.load.sceneFile('start_screen', 'start_screen.js');
+        this.load.sceneFile('StartScreen', 'start_screen.js');
+        this.load.sceneFile('DeathScene', 'death_scene.js');
+        this.load.sceneFile('LevelOne', 'level_one.js');
 
         // Sprites JS
         this.load.setPath('/js/sprites/');
@@ -72,6 +74,8 @@ class LoadScreen extends Phaser.Scene {
         this.load.setPath('/assets/sprites/');
         this.load.atlas('player', 'nick_clark.png', 'nick_clark.json');
         this.load.atlas('zombie1', 'zombie1.png', 'zombie1.json');
+        this.load.atlas('zombie2', 'zombie2.png', 'zombie2.json');
+        this.load.atlas('zombie3', 'zombie3.png', 'zombie3.json');
 
         // Levels
         this.load.setPath('/assets/levels/');
@@ -98,7 +102,8 @@ class LoadScreen extends Phaser.Scene {
     }
 
     create() {
-        this.scene.switch('start_screen');
+        // this.scene.switch('start_screen');
+        this.scene.switch('death_scene');
     }
 }
 

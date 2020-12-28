@@ -1,6 +1,7 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
     MAX_HOR_SPEED = 400;
     MAX_VER_SPEED = 1000;
+    dead = false;
 
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
@@ -12,14 +13,21 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.cursors = scene.cursors;
     }
 
+    setDead(dead) {
+        this.dead = dead;
+        this.setMaxVelocity(0);
+    }
+
     preUpdate(time, delta) {
         if (!this.cursors) return;
+        if (this.dead) return;
+
         const onFloor = this.body.onFloor();
 
         if (onFloor) {
             if (this.cursors.space.isDown) {
                 this.jumping = true;
-//                this.anims.play('jump', false);
+                //                this.anims.play('jump', false);
                 this.setVelocityY(-this.MAX_VER_SPEED);
             } else {
                 this.jumping = false;
@@ -52,7 +60,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.create({
             key: 'run',
             frames: [
-                              {
+                {
                     key: 'player',
                     frame: 'frame-1'
                 },
