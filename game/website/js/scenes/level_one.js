@@ -55,7 +55,7 @@ class LevelOne extends Phaser.Scene {
         const width = this.map.widthInPixels;
         const height = this.map.heightInPixels;
 
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 10; i++) {
             const z_from = this.map.findObject('sprites', object => object.name === 'z' + i && object.type === 'from');
             const z_to = this.map.findObject('sprites', object => object.name === 'z' + i && object.type === 'to');          
 

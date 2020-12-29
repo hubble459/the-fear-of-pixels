@@ -19,7 +19,7 @@ class Story extends Phaser.Scene {
             origin: .5
         });
 
-        const lore = 'Nick Clark awakes from a strange dreams and \n' +
+        const lore = 'Nick Clark awakes from a strange dream and \n' +
         'finds the world around him pixel-fied and \n'+
         'riddled with flesh-eating walkers. Help him \n' +
         'navigate this dangerous world, and find \n' +
