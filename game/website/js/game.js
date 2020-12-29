@@ -13,7 +13,7 @@ class LoadScreen extends Phaser.Scene {
             text: 'Loading...',
             style: {
                 font: '20px monospace',
-                fill: '#ffffff'
+                color: '#ffffff'
             },
             origin: .5
         });
@@ -24,7 +24,7 @@ class LoadScreen extends Phaser.Scene {
             text: '0%',
             style: {
                 font: '18px monospace',
-                fill: '#ffffff'
+                color: '#ffffff'
             },
             origin: .5
         });
@@ -35,7 +35,7 @@ class LoadScreen extends Phaser.Scene {
             text: '',
             style: {
                 font: '18px monospace',
-                fill: '#ffffff'
+                color: '#ffffff'
             },
             origin: .5
         });
@@ -59,11 +59,13 @@ class LoadScreen extends Phaser.Scene {
             assetText.destroy();
         });
 
-        // Load assets
+        // Load scenes
         this.load.setPath('/js/scenes/');
         this.load.sceneFile('StartScreen', 'start_screen.js');
         this.load.sceneFile('DeathScene', 'death_scene.js');
         this.load.sceneFile('LevelOne', 'level_one.js');
+        this.load.sceneFile('Story', 'story_screen.js');
+        this.load.sceneFile('Settings', 'settings_screen.js');
 
         // Sprites JS
         this.load.setPath('/js/sprites/');
@@ -81,6 +83,15 @@ class LoadScreen extends Phaser.Scene {
         this.load.setPath('/assets/levels/');
         this.load.tilemapTiledJSON('level_1', 'level_1.json');
 
+        // Images
+        this.load.setPath('/assets/images/');
+        this.load.image('skyline', 'LA_skyline.png');
+        this.load.image('logo', 'logo.png');
+        this.load.image('consolesoption1', 'consolesoption1.png');
+        this.load.image('consolesoption2', 'consolesoption2.png');
+        this.load.image('sound_off', 'sound_off.png');
+        this.load.image('sound_on', 'sound_on.png');
+
         // Tile-sets
         const tile_sets = '/assets/tile_sets/';
         this.load.setPath(tile_sets + 'level_one');
@@ -93,7 +104,6 @@ class LoadScreen extends Phaser.Scene {
         this.load.spritesheet('posters', 'posters.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('tile1', 'tile1.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('streetlight', 'streetlight.png', {frameWidth: 32, frameHeight: 32});
-        this.load.image('skyline', 'LA_skyline.png');
         this.load.spritesheet('clouds', 'clouds.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('LA_sign', 'LA_sign.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('stopsign', 'stopsign.png', {frameWidth: 32, frameHeight: 32});
@@ -102,8 +112,8 @@ class LoadScreen extends Phaser.Scene {
     }
 
     create() {
-        // this.scene.switch('start_screen');
-        this.scene.switch('death_scene');
+        this.scene.switch('start_screen');
+        // this.scene.switch('death_scene');
     }
 }
 
