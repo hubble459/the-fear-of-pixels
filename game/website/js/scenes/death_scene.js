@@ -6,16 +6,25 @@ class DeathScene extends Phaser.Scene {
     adviceTexts = [
         'Maybe try evading them next time.',
         `Geesh, I thought you'd survive longer.`,
-        `Don't give up yet! We'll get there`,
+        `Don't give up on us yet! We'll get there`,
         'Hey, be careful out there!',
         'Again...'
     ];
 
+    // preload(){
+    //     this.load.setPath('/js/scenes/');
+    //     this.load.sceneFile('LevelOne', 'level_one.js');
+    // }
+
     create() {
-        document.body.style.backgroundColor = 'black'; 
+
+
+        // document.body.style.backgroundColor = 'black'; 
 
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
+
+        // this.add.image(400, 300, 'skyline');
 
         const deathText = this.make.text({
             x: width / 2,
@@ -24,7 +33,7 @@ class DeathScene extends Phaser.Scene {
             text: 'YOU DIED.',
             style: {
                 font: '70px impact',
-                fill: '#ffffff'
+                color: '#ffffff'
             },
             origin: .5
         });
@@ -35,60 +44,62 @@ class DeathScene extends Phaser.Scene {
             text: this.adviceTexts[~~(Math.random() * this.adviceTexts.length)],
             style: {
                 font: '30px monospace',
-                fill: '#ffffff'
+                color: '#ffffff'
             },
             origin: .5
         });
 
-        this.newGameButton = this.make.text({
+        const newGameButton = this.make.text({
             x: width / 2,
             y: height / 2 + 150,
-            text: 'NEW GAME',
+            text: 'PLAY AGAIN',
             style: {
                 font: '30px impact',
-                fill: '#fff'
+                color: '#fff'
             },
             origin: .5
         });
-        this.newGameButton.setInteractive();
-        this.newGameButton.on('pointerdown', () => {
-            // this.clickCountText.setText(`Button has been clicked ${++clickCount} times.`);
-            this.newGameButton.setStyle({
+        newGameButton.setInteractive();
+        newGameButton.on('pointerdown', () => {
+            newGameButton.setStyle({
                 color: 'indianRed',
             });
-        });
-        this.newGameButton.on('pointerover', () => {
-            this.newGameButton.setStyle({
+            // change scene
+            this.scene.start('level_one');
+        }, this);
+        newGameButton.on('pointerover', () => {
+            newGameButton.setStyle({
                 color: 'fireBrick',
             });
         });
-        this.newGameButton.on('pointerout', () => {
-            this.newGameButton.setStyle({ color: 'white' });
+        newGameButton.on('pointerout', () => {
+            newGameButton.setStyle({ color: 'white' });
         });
-        this.QuitButton = this.make.text({
+        const quitButton = this.make.text({
             x: width / 2,
             y: height / 2 + 200,
             text: 'QUIT',
             style: {
                 font: '30px impact',
-                fill: '#fff'
+                color: '#fff'
             },
             origin: .5
         });
-        this.QuitButton.setInteractive();
-        this.QuitButton.on('pointerdown', () => {
-            this.QuitButton.setStyle({
+        quitButton.setInteractive();
+        quitButton.on('pointerdown', () => {
+            quitButton.setStyle({
                 color: 'indianRed',
             });
-        });
-        this.QuitButton.on('pointerover', () => {
-            this.QuitButton.setStyle({
-                color: 'fireBrick',
+            this.scene.start('start_screen');
+        }, this);
+
+        quitButton.on('pointerover', () => {
+            quitButton.setStyle({
+                color: 'fireBrick'
             });
         });
-        this.QuitButton.on('pointerout', () => {
-            this.QuitButton.setStyle({ color: 'white' });
+        quitButton.on('pointerout', () => {
+            quitButton.setStyle({ color: 'white' });
         });
     }
-
 }

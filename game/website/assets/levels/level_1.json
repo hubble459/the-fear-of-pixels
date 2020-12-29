@@ -423,7 +423,7 @@
          "columns":6,
          "firstgid":272,
          "image":"..\/tile_sets\/level_one\/posters.png",
-         "imageheight":192,
+         "imageheight":384,
          "imagewidth":192,
          "margin":0,
          "name":"posters",

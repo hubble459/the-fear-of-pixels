@@ -3,8 +3,15 @@ class LevelOne extends Phaser.Scene {
         super('level_one');
     }
 
+    map;
+    player;
+    background;
+    cursors;
+
+
     create() {
-        this.#bindKeys();
+        this.cameras.main.fadeIn(500);
+
 
         this.cameras.main.setBackgroundColor('#456789');
 
@@ -60,6 +67,7 @@ class LevelOne extends Phaser.Scene {
                 if (!player.dead && player.y + player.displayHeight > zombie.y + zombie.displayHeight / 2) {
                     player.setDead(true);
 
+                    zombie.setStop(true);
                     const x = player.x;
                     const zX = zombie.x;
                     zombie.setFlipX(zX > x);
@@ -71,7 +79,7 @@ class LevelOne extends Phaser.Scene {
         }
 
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.switch('death_scene');
+            this.scene.start('death_scene');
             // this.scene.transition({target: 'death_scene', duration: 2000});
         })
 
@@ -97,18 +105,5 @@ class LevelOne extends Phaser.Scene {
         }
     }
 
-    #bindKeys() {
-        // Bind cursor keys
-        this.cursors = this.input.keyboard.addKeys({
-            up: Phaser.Input.Keyboard.KeyCodes.W,
-            down: Phaser.Input.Keyboard.KeyCodes.S,
-            left: Phaser.Input.Keyboard.KeyCodes.A,
-            right: Phaser.Input.Keyboard.KeyCodes.D,
-            space: Phaser.Input.Keyboard.KeyCodes.SPACE,
-            up2: Phaser.Input.Keyboard.KeyCodes.UP,
-            down2: Phaser.Input.Keyboard.KeyCodes.DOWN,
-            left2: Phaser.Input.Keyboard.KeyCodes.LEFT,
-            right2: Phaser.Input.Keyboard.KeyCodes.RIGHT
-        });
-    }
+    
 }

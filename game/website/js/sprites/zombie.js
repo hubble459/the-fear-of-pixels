@@ -1,5 +1,11 @@
 class Zombie extends Phaser.Physics.Arcade.Sprite {
     MAX_HOR_SPEED = 100;
+    key;
+    from;
+    to;
+    right;
+    stop = false;
+
 
     constructor(scene, width, height, from, to, type) {
         super(scene, from.x, from.y, 'zombie' + type);
@@ -31,20 +37,25 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
             }
         };
         this.anims.play('walk1', true).on('animationcomplete', listener);
+    }
 
+    setStop(stop) {
+        this.stop = stop;
     }
 
     preUpdate(time, delta) {
-        this.setFlipX(!this.right);
-        if (this.right) {
-            this.setVelocityX(this.MAX_HOR_SPEED);
-            this.right = this.x < this.to.x;
-        } else {
-            this.setVelocityX(-this.MAX_HOR_SPEED);
-            this.right = this.x < this.from.x;
-        }
-
+        if (!this.stop) {
+            this.setFlipX(!this.right);
+            if (this.right) {
+                this.setVelocityX(this.MAX_HOR_SPEED);
+                this.right = this.x < this.to.x;
+            } else {
+                this.setVelocityX(-this.MAX_HOR_SPEED);
+                this.right = this.x < this.from.x;
+            }
         super.preUpdate(time, delta);
+
+        }
     }
 
     animations() {
