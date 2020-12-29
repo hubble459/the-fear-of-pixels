@@ -2,7 +2,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     MAX_HOR_SPEED = 400;
     MAX_VER_SPEED = 1000;
     dead = false;
-    jumping = true;
+    jumping = false;
+    movable = true;
     cursors;
 
     constructor(scene, x, y) {
@@ -21,38 +22,40 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     preUpdate(time, delta) {
-        if (!this.cursors) return;
-        if (this.dead) return;
+        if (this.movable) {
+            if (!this.cursors) return;
+            if (this.dead) return;
 
-        const onFloor = this.body.onFloor();
+            const onFloor = this.body.onFloor();
 
-        if (onFloor) {
-            if (this.cursors.space.isDown) {
-                this.jumping = true;
-                //                this.anims.play('jump', false);
-                this.setVelocityY(-this.MAX_VER_SPEED);
-            } else {
-                this.jumping = false;
+            if (onFloor) {
+                if (this.cursors.space.isDown) {
+                    this.jumping = true;
+                    //                this.anims.play('jump', false);
+                    this.setVelocityY(-this.MAX_VER_SPEED);
+                } else {
+                    this.jumping = false;
+                }
             }
-        }
 
-        if (this.cursors.right.isDown || this.cursors.right2.isDown) {
-            this.setVelocityX(this.MAX_HOR_SPEED);
-            this.setFlipX(false);
-            if (!this.jumping) {
-                this.anims.play('run', true)
+            if (this.cursors.right.isDown || this.cursors.right2.isDown) {
+                this.setVelocityX(this.MAX_HOR_SPEED);
+                this.setFlipX(false);
+                if (!this.jumping) {
+                    this.anims.play('run', true)
+                }
+            } else if (this.cursors.left.isDown || this.cursors.left2.isDown) {
+                this.setVelocityX(-this.MAX_HOR_SPEED);
+                this.setFlipX(true);
+                if (!this.jumping) {
+                    this.anims.play('run', true)
+                }
+            } else if (onFloor && !this.jumping) {
+                this.setVelocity(0);
+                // this.anims.stopAfterRepeat(0);
+                this.anims.stop();
+                this.setFrame('frame-0');
             }
-        } else if (this.cursors.left.isDown || this.cursors.left2.isDown) {
-            this.setVelocityX(-this.MAX_HOR_SPEED);
-            this.setFlipX(true);
-            if (!this.jumping) {
-                this.anims.play('run', true)
-            }
-        } else if (onFloor && !this.jumping) {
-            this.setVelocity(0);
-            // this.anims.stopAfterRepeat(0);
-            this.anims.stop();
-            this.setFrame('frame-0');
         }
 
         super.preUpdate(time, delta);
@@ -93,12 +96,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 {
                     key: 'player',
                     frame: 'frame-0'
-                },
+                }
             ],
             frameRate: 12,
             repeat: -1
         });
     }
+
     bindKeys() {
         // Bind cursor keys
         this.cursors = this.scene.input.keyboard.addKeys({
@@ -112,5 +116,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             left2: Phaser.Input.Keyboard.KeyCodes.LEFT,
             right2: Phaser.Input.Keyboard.KeyCodes.RIGHT
         });
+    }
+
+    setMovable(movable) {
+        this.movable = movable;
     }
 }

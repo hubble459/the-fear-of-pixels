@@ -12,7 +12,6 @@ class LevelOne extends Phaser.Scene {
     create() {
         this.cameras.main.fadeIn(500);
 
-
         this.cameras.main.setBackgroundColor('#456789');
 
         this.physics.world.TILE_BIAS = 64;

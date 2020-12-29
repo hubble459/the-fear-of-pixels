@@ -66,6 +66,7 @@ class LoadScreen extends Phaser.Scene {
         this.load.sceneFile('LevelOne', 'level_one.js');
         this.load.sceneFile('Story', 'story_screen.js');
         this.load.sceneFile('Settings', 'settings_screen.js');
+        this.load.sceneFile('CutSceneOne', 'cut_scene_one.js');
 
         // Sprites JS
         this.load.setPath('/js/sprites/');
@@ -112,8 +113,8 @@ class LoadScreen extends Phaser.Scene {
     }
 
     create() {
-        this.scene.switch('start_screen');
-        // this.scene.switch('death_scene');
+        // this.scene.switch('start_screen');
+        this.scene.switch('cut_scene_one');
     }
 }
 

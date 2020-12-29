@@ -7,7 +7,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
     stop = false;
 
 
-    constructor(scene, width, height, from, to, type) {
+    constructor(scene, from, to, type) {
         super(scene, from.x, from.y, 'zombie' + type);
         this.key = 'zombie' + type;
         this.from = from;
@@ -25,7 +25,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
         this.setScale(scale);
         this.setFlipX(!this.right);
-        this.setBodySize(this.displayWidth / 2.5, height, true);
+        // this.setBodySize(this.displayWidth / 2.5, height, true);
         this.setImmovable(true);
         this.body.setImmovable(true);
         const listener = () => {
@@ -33,7 +33,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
             if (openMouth) {
                 this.anims.play('walk2', true);
             } else {
-                this.anims.play('walk1', true);//.on('animationcomplete', listener);
+                this.anims.play('walk1', true);
             }
         };
         this.anims.play('walk1', true).on('animationcomplete', listener);
