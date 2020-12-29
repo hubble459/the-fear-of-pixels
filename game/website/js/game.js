@@ -84,6 +84,7 @@ class LoadScreen extends Phaser.Scene {
         // Images
         this.load.setPath('/assets/images/');
         this.load.image('skyline', 'LA_skyline.png');
+        this.load.image('logo', 'logo.png');
 
         // Tile-sets
         const tile_sets = '/assets/tile_sets/';

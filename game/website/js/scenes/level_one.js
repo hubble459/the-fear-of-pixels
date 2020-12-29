@@ -68,6 +68,7 @@ class LevelOne extends Phaser.Scene {
                 if (!player.dead && player.y + player.displayHeight > zombie.y + zombie.displayHeight / 2) {
                     player.setDead(true);
 
+                    zombie.setStop(true);
                     const x = player.x;
                     const zX = zombie.x;
                     zombie.setFlipX(zX > x);

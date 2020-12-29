@@ -17,14 +17,14 @@ class DeathScene extends Phaser.Scene {
     // }
 
     create() {
-        
-     
+
+
         // document.body.style.backgroundColor = 'black'; 
 
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
-       // this.add.image(400, 300, 'skyline');
+        // this.add.image(400, 300, 'skyline');
 
         const deathText = this.make.text({
             x: width / 2,
@@ -61,7 +61,6 @@ class DeathScene extends Phaser.Scene {
         });
         newGameButton.setInteractive();
         newGameButton.on('pointerdown', () => {
-            // this.clickCountText.setText(`Button has been clicked ${++clickCount} times.`);
             newGameButton.setStyle({
                 color: 'indianRed',
             });
@@ -91,15 +90,16 @@ class DeathScene extends Phaser.Scene {
             quitButton.setStyle({
                 color: 'indianRed',
             });
-        });
+            this.scene.start('start_screen');
+        }, this);
+
         quitButton.on('pointerover', () => {
             quitButton.setStyle({
-                color: 'fireBrick',
+                color: 'fireBrick'
             });
         });
         quitButton.on('pointerout', () => {
             quitButton.setStyle({ color: 'white' });
         });
     }
-
 }
