@@ -52,7 +52,7 @@ class DeathScene extends Phaser.Scene {
         const newGameButton = this.make.text({
             x: width / 2,
             y: height / 2 + 150,
-            text: 'NEW GAME',
+            text: 'PLAY AGAIN',
             style: {
                 font: '30px impact',
                 color: '#fff'

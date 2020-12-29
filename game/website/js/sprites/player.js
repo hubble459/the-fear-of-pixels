@@ -12,7 +12,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
         // this.setCollideWorldBounds(true);
         this.setScale(.175);
-        this.cursors = scene.cursors;
+        this.bindKeys();
     }
 
     setDead(dead) {
@@ -97,6 +97,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             ],
             frameRate: 12,
             repeat: -1
+        });
+    }
+    bindKeys() {
+        // Bind cursor keys
+        this.cursors = this.scene.input.keyboard.addKeys({
+            up: Phaser.Input.Keyboard.KeyCodes.W,
+            down: Phaser.Input.Keyboard.KeyCodes.S,
+            left: Phaser.Input.Keyboard.KeyCodes.A,
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            space: Phaser.Input.Keyboard.KeyCodes.SPACE,
+            up2: Phaser.Input.Keyboard.KeyCodes.UP,
+            down2: Phaser.Input.Keyboard.KeyCodes.DOWN,
+            left2: Phaser.Input.Keyboard.KeyCodes.LEFT,
+            right2: Phaser.Input.Keyboard.KeyCodes.RIGHT
         });
     }
 }

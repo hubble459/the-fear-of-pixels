@@ -40,32 +40,60 @@ class StartScreen extends Phaser.Scene {
             startGameButton.setStyle({ color: 'white' });
         });
 
-        const optionsButton = this.make.text({
+        const settingsButton = this.make.text({
             x: width / 2,
-            y: height / 2 + 200,
-            text: 'OPTIONS',
+            y: height / 2 + 250,
+            text: 'SETTINGS',
             style: {
                 font: '30px impact',
                 color: 'white'
             },
             origin: .5
         });
-        optionsButton.setInteractive();
-        optionsButton.on('pointerdown', () => {
-            optionsButton.setStyle({
+        settingsButton.setInteractive();
+        settingsButton.on('pointerdown', () => {
+            settingsButton.setStyle({
                 color: 'indianRed',
             });
-        });
-        optionsButton.on('pointerover', () => {
-            optionsButton.setStyle({
+            //change scene
+            this.scene.start('settings_screen');
+        }, this);
+
+        settingsButton.on('pointerover', () => {
+            settingsButton.setStyle({
                 color: 'fireBrick',
             });
         });
-        optionsButton.on('pointerout', () => {
-            optionsButton.setStyle({ color: 'white' });
+        settingsButton.on('pointerout', () => {
+            settingsButton.setStyle({ color: 'white' });
+        });
+        const storyButton = this.make.text({
+            x: width / 2,
+            y: height / 2 + 200,
+            text: 'STORY',
+            style: {
+                font: '30px impact',
+                color: 'white'
+            },
+            origin: .5
+        });
+        storyButton.setInteractive();
+        storyButton.on('pointerdown', () => {
+            storyButton.setStyle({
+                color: 'indianRed',
+            });
+            //change scene
+            this.scene.start('story_screen');
+        }, this);
+
+        storyButton.on('pointerover', () => {
+            storyButton.setStyle({
+                color: 'fireBrick',
+            });
+        });
+        storyButton.on('pointerout', () => {
+            storyButton.setStyle({ color: 'white' });
         });
     }
- 
-        //this.scene.start('level_one');
-    }
+}
 
