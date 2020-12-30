@@ -4,14 +4,14 @@ class CutSceneOne extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(2000);
+        this.cameras.main.fadeIn(3000);
 
         document.body.style.backgroundColor = '#111';
         this.cameras.main.setBackgroundColor('#111');
 
         this.width = 1000;
         this.height = this.cameras.main.height / 2 + 105;
-        const map = this.make.tilemap({width: this.width, height: this.height, tileWidth: 1, tileHeight: 1})
+        const map = this.make.tilemap({ width: this.width, height: this.height, tileWidth: 1, tileHeight: 1 })
         this.physics.world.setBounds(-map.widthInPixels * 2, 0, map.widthInPixels * 4, map.heightInPixels);
         this.cameras.main.setSize(map.widthInPixels * 4, map.heightInPixels * 2);
 
@@ -20,10 +20,14 @@ class CutSceneOne extends Phaser.Scene {
         this.player.setMovable(false);
 
 
-        this.zombie = new Zombie(this, {x: this.width / 2, y: this.height}, {x: this.width * 100, y: this.height}, 1);
+        this.zombie = new Zombie(this, { x: this.width / 2, y: this.height }, { x: this.width * 100, y: this.height }, 1);
         this.zombie.setCollideWorldBounds(true);
 
         this.cameras.main.setPosition(-100, 0);
+
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+            this.scene.start('level_one');
+        });
     }
 
     async update(time, delta) {
@@ -31,37 +35,58 @@ class CutSceneOne extends Phaser.Scene {
             this.player.setVelocityX(100);
             this.player.anims.play('run', true);
         }
+
         if (~this.player.x < -this.width / 2 && !this.playerStopped) {
             this.playerStopped = true;
 
             // Stop moving
             this.player.setVelocityX(0);
+            
             // Stop running
-            this.player.anims.stop();
+            this.player.anims.stop(2000);
             this.player.setFrame('frame-0');
+
             // Look around
             await this.sleep(500);
             this.player.setFlipX(true);
             await this.sleep(500);
             this.player.setFlipX(false);
+            await this.sleep(500);
 
             this.subtitle = 0;
-            this.addSubtitle(`OwO?! What's this?\n*notices bulge*`, 2000);
+            this.show = true;
+        }
+        
+        if (this.show) {
+            this.show = false;
+            switch (this.subtitle) {
+                case 0:
+                    this.addSubtitle(`Huh? What was that?`, 2000);
+                    break;
+                    
+                case 1:
+                    this.player.setFlipX(true);
+                    await this.sleep(500);
+                    this.player.setFlipX(false);
+                    await this.sleep(500);
+                    this.addSubtitle(`Guess I'll follow it to find out.`, 2000);
+                    break;
+
+                case 2:
+                    this.player.anims.play('run', true);
+                    this.player.setVelocityX(130);
+                    break;
+            }
+        }
+        if (~this.player.x > -this.width + 100) {
+            this.cameras.main.fadeOut(2000);
         }
 
-        switch (this.subtitle) {
-            case 1:
-                this.addSubtitle(`Oh well...\nI guess it was just the wind.`, 2000);
-                break;
-            case 2:
-                this.player.setVelocityX(100);
-                break;
-        }
     }
 
     addSubtitle(text, duration) {
         const sub = this.add.text(
-            this.player.x - this.player.displayWidth * .75,
+            0,
             this.player.y - this.player.displayHeight * .75,
             text,
             {
@@ -69,9 +94,12 @@ class CutSceneOne extends Phaser.Scene {
                 align: 'center'
             }
         );
+        const pos = this.player.x - sub.width / 2;
+        sub.setPosition(pos, sub.y);
 
         setTimeout(() => {
             sub.destroy();
+            this.show = true;
             this.subtitle++;
         }, duration);
     }

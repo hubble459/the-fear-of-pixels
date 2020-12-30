@@ -6,8 +6,7 @@ class LevelOne extends Phaser.Scene {
     map;
     player;
     background;
-    cursors;
-
+    intro = true;
 
     create() {
         this.cameras.main.fadeIn(500);
@@ -47,6 +46,7 @@ class LevelOne extends Phaser.Scene {
         const playerSpawn = this.map.findObject('sprites', object => object.name === 'spawn');
 
         this.player = new Player(this, playerSpawn.x, playerSpawn.y);
+        this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, world);
         this.cameras.main.startFollow(this.player, true, .1, .1);
@@ -56,14 +56,15 @@ class LevelOne extends Phaser.Scene {
 
         for (let i = 1; i <= 10; i++) {
             const z_from = this.map.findObject('sprites', object => object.name === 'z' + i && object.type === 'from');
-            const z_to = this.map.findObject('sprites', object => object.name === 'z' + i && object.type === 'to');          
+            const z_to = this.map.findObject('sprites', object => object.name === 'z' + i && object.type === 'to');
 
-            const zombie = new Zombie(this, this.player.displayWidth, this.player.displayHeight, z_from, z_to, (i % 3) + 1);
+            const zombie = new Zombie(this, z_from, z_to, (i % 3) + 1);
             this.physics.add.collider(zombie, wall);
             this.physics.add.collider(zombie, world);
 
             this.physics.add.overlap(zombie, this.player, (zombie, player) => {
-                if (!player.dead && player.y + player.displayHeight > zombie.y + zombie.displayHeight / 2) {
+
+                if (!player.dead && player.y + player.displayHeight > zombie.y + zombie.height / 2) {
                     player.setDead(true);
 
                     zombie.setStop(true);
@@ -72,7 +73,8 @@ class LevelOne extends Phaser.Scene {
                     zombie.setFlipX(zX > x);
 
                     zombie.setMaxVelocity(0);
-                    this.cameras.main.fadeOut(500, 0, 0, 0);
+                    this.cameras.main.fadeOut(500);
+                    // fix hitbox zombies oops
                 }
             });
         }
@@ -83,7 +85,8 @@ class LevelOne extends Phaser.Scene {
         })
 
         // Sizes
-        this.cameras.main.setBounds(0, 0, width, height);
+        const outside = 350;
+        this.cameras.main.setBounds(outside, 0, width - outside, height);
         this.physics.world.setBounds(0, 0, width, height);
         this.cameras.main.scaleManager.setGameSize(2000, height);
 
@@ -96,13 +99,91 @@ class LevelOne extends Phaser.Scene {
         ).setDepth(-1)
             .setOrigin(0)
             .setScrollFactor(0);
+
+        // On Start
+        if (this.intro) {
+            const playerIntroSpawn = this.map.findObject('sprites', object => object.name === 'intro_spawn');
+
+            this.player.setPosition(playerIntroSpawn.x, playerIntroSpawn.y);
+            this.player.setVelocityX(150);
+            this.player.anims.play('run', true);
+            this.player.setMovable(false);
+        }
     }
 
     update(time, delta) {
         if (this.background && this.cameras.main) {
             this.background.tilePositionX = this.cameras.main.scrollX * .3;
         }
+
+        if (~~this.player.x > 650 && this.intro) {
+            this.intro = false;
+            // Stop moving
+            this.player.setVelocityX(0);
+
+            // Stop running
+            this.player.anims.stop();
+            this.player.setFrame('frame-0');
+
+            this.subtitle = 0;
+            console.log('òwó?');
+            this.talking = true;
+        }
+        if (this.talking) {
+            this.talking = false;
+            switch (this.subtitle) {
+                case 0:
+                    let sub = this.addSubtitle(`Press the Space Bar to jump`);
+                    this.input.keyboard.once('keydown-SPACE', () => {
+                        this.talking = true;
+                        this.player.setVelocityY(-1000);
+                        this.subtitle++;
+                        sub.destroy();
+                    });
+                    break;
+
+                case 1:
+                    this.addSubtitle(`Move back and forth with either\n` +
+                        `'<-' and '->' or 'A' and 'D'.`, 3000);
+                    this.player.setMovable(true);
+                    break;
+                case 2:
+                    this.addSubtitle(`Let's try an evade those things for now.`, 2000);
+                    break;
+                case 3:
+                    this.addSubtitle(`What about jumping on the cars?`, 2000)
+                    break;
+            }
+        }
     }
 
-    
+    addSubtitle(text, duration) {
+        const width = this.cameras.main.width;
+        const height = this.cameras.main.height;
+
+        const sub = this.add.text(
+            0,
+            0,
+            text,
+            {
+                color: 'white',
+                align: 'center',
+                fontSize: '3em',
+                fontStyle: 'bold'
+            }
+        );
+        const pos = width / 2 - sub.width / 2;
+        sub.setPosition(pos, height - 80);
+        sub.setScrollFactor(0);
+
+        if (duration) {
+            setTimeout(() => {
+                console.log('you can talk again!!');
+                sub.destroy();
+                this.talking = true;
+                this.subtitle++;
+            }, duration);
+        }
+        return sub;
+    }
 }

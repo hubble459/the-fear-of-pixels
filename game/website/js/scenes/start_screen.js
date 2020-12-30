@@ -9,35 +9,64 @@ class StartScreen extends Phaser.Scene {
          const width = this.cameras.main.width;
          const height = this.cameras.main.height;
  
-        this.add.image(width / 2, height / 2, 'logo');
+        this.add.image(width / 2, height / 2 - 50, 'logo');
 
-        const startGameButton = this.make.text({
+        const newGameButton = this.make.text({
             x: width / 2,
-            y: height / 2 + 150,
-            text: 'START GAME',
+            y: height / 2 + 100,
+            text: 'NEW GAME',
             style: {
                 font: '30px impact',
                 color: 'white'
             },
             origin: .5
         });
-        startGameButton.setInteractive();
+        newGameButton.setInteractive();
 
-        startGameButton.on('pointerover', () => {
-            startGameButton.setStyle({
+        newGameButton.on('pointerover', () => {
+            newGameButton.setStyle({
                 color: 'fireBrick',
             });
         });
-        startGameButton.on('pointerdown', () => {
-            startGameButton.setStyle({
+        newGameButton.on('pointerdown', () => {
+            newGameButton.setStyle({
                 color: 'indianRed',
             });
             // change scene
+            this.scene.start('cut_scene_one');
+        }, this);
+
+        newGameButton.on('pointerout', () => {
+            newGameButton.setStyle({ color: 'white' });
+        });
+
+        const loadGameButton = this.make.text({
+            x: width / 2,
+            y: height / 2 + 150,
+            text: 'LOAD GAME',
+            style: {
+                font: '30px impact',
+                color: 'white'
+            },
+            origin: .5
+        });
+        loadGameButton.setInteractive();
+        loadGameButton.on('pointerdown', () => {
+            loadGameButton.setStyle({
+                color: 'indianRed',
+            });
+            //change scene
             this.scene.start('level_one');
         }, this);
 
-        startGameButton.on('pointerout', () => {
-            startGameButton.setStyle({ color: 'white' });
+        loadGameButton.on('pointerover', () => {
+            loadGameButton.setStyle({
+                color: 'fireBrick',
+            });
+            console.log('owo');
+        });
+        loadGameButton.on('pointerout', () => {
+            loadGameButton.setStyle({ color: 'white' });
         });
 
         const settingsButton = this.make.text({
@@ -67,6 +96,7 @@ class StartScreen extends Phaser.Scene {
         settingsButton.on('pointerout', () => {
             settingsButton.setStyle({ color: 'white' });
         });
+
         const storyButton = this.make.text({
             x: width / 2,
             y: height / 2 + 200,

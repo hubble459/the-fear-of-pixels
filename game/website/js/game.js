@@ -113,8 +113,8 @@ class LoadScreen extends Phaser.Scene {
     }
 
     create() {
-        // this.scene.switch('start_screen');
-        this.scene.switch('cut_scene_one');
+        this.scene.switch('start_screen');
+        // this.scene.switch('cut_scene_one');
     }
 }
 
